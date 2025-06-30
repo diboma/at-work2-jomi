@@ -1,0 +1,97 @@
+<form hx-put="/api/training/update/{{training.id}}"
+      hx-swap="outerHTML swap:300ms scroll:top"
+      id="training-form-{{ training.id }}"
+      class="list-group-item d-flex flex-column gap-1">
+
+  <div class="mb-3">
+    <label for="maatwerkcoach_id" class="form-label form-label-sm">
+      Coach <span class="text-danger">*</span>
+    </label>
+    <select name="maatwerkcoach_id" id="maatwerkcoach_id" class="form-select form-select-sm" required>
+      <option value=""></option>
+      {{#each maatwerkcoaches}}
+        <option value="{{ id }}" {{#ifEq id ../training.maatwerkcoach_id}}selected{{/ifEq}}>
+          {{firstname }} {{lastname}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="indicated_by_coach" class="form-label">Nood verwoord door <span class="text-danger">*</span></label>
+    <select name="indicated_by_coach" id="indicated_by_coach" class="form-select" required>
+      <option value=""></option>
+      <option value="0" {{#unless training.indicated_by_coach}}selected{{/unless}}>Maatwerker</option>
+      <option value="1" {{#if training.indicated_by_coach}}selected{{/if}}>Coach</option>
+    </select>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col">
+      <label for="date " class="form-label">Datum <span class="text-danger">*</span></label>
+      <input type="date"
+             name="date"
+             id="date"
+             class="form-control"
+             value="{{dateForForm training.date}}"
+             required />
+    </div>
+    <div class="col">
+      <label for="time " class="form-label">Uur: <span class="text-danger">*</span></label>
+      <input type="time"
+             name="time"
+             id="time"
+             class="form-control"
+             value="{{timeForForm training.date}}"
+             required />
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="location" class="form-label">Plaats <span class="text-danger">*</span></label>
+    <input type="text"
+           name="location"
+           id="location"
+           class="form-control"
+           value="{{training.location}}"
+           required />
+  </div>
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Onderwerp <span class="text-danger">*</span></label>
+    <input type="text"
+           name="title"
+           id="title"
+           class="form-control"
+           value="{{training.title}}"
+           required />
+  </div>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Inhoud</label>
+    <textarea name="content"
+              id="content"
+              class="form-control"
+              rows="3">{{training.content}}</textarea>
+  </div>
+  <div class="mb-3">
+    <label for="comment" class="form-label">Opmerking</label>
+    <textarea name="comment" id="comment" class="form-control" rows="3">{{training.comment}}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <input type="checkbox"
+           name="is_pinned"
+           id="is_pinned"
+           class="form-check-input"
+           {{#if training.is_pinned}}checked{{/if}}>
+    <label for="is_pinned" class="form-label">Pinnen</label>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+
+  <button hx-get="/api/training/show/{{training.id}}"
+          hx-target="#training-form-{{ training.id }}"
+          hx-swap="outerHTML swap:300ms"
+          class="btn btn-outline-secondary mt-3 w-100">Annuleren</button>
+</form>

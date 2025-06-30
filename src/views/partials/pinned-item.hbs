@@ -1,0 +1,34 @@
+<div id="pinned-item"
+     data-id="{{ item.id }}"
+     class="alert alert-{{type}} alert-dismissible fade show mx-auto mb-5"
+     role="alert">
+
+  <div class="d-flex align-items-start gap-1 mb-3">
+    <span class="material-symbols-outlined" style="font-size: 48px;">keep</span>
+
+    <div class="d-flex flex-column gap-2">
+      {{#if title}}
+        <span id="pinned-item-title" class="fw-bold">{{ title }}</span>
+      {{/if}}
+      {{#if item.type}}
+        <span id="pinned-item-title" class="fw-bold">{{ item.type.name }}</span>
+      {{/if}}
+      {{#if isAccident}}
+        <div class="d-flex flex-column gap-1" id="pinned-item-title">
+          <span>{{dateTime item.date }}</span>
+          <span>{{ item.location }}</span>
+        </div>
+      {{/if}}
+
+      <a id="pinned-item-link"
+         data-item-id="{{ item.id }}"
+         class="alert-link"
+         role="button">
+        Bekijk de details
+      </a>
+    </div>
+  </div>
+
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+</div>

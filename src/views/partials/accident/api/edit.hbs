@@ -1,0 +1,79 @@
+<form hx-put="/api/accident/update/{{accident.id}}"
+      hx-swap="outerHTML swap:300ms scroll:top"
+      hx-target="#accordion-{{ accident.id }}"
+      id="accident-form-{{ accident.id }}"
+      class="list-group-item d-flex flex-column gap-1">
+
+  <div class="mb-3">
+    <label for="reported_by_id" class="form-label form-label-sm">
+      Coach <span class="text-danger">*</span>
+    </label>
+    <select name="reported_by_id" id="reported_by_id" class="form-select form-select-sm" required>
+      <option value=""></option>
+      {{#each maatwerkcoaches}}
+        <option value="{{ id }}" {{#ifEq id ../accident.reported_by_id}}selected{{/ifEq}}>
+          {{firstname }} {{lastname}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col">
+      <label for="date " class="form-label">Datum <span class="text-danger">*</span></label>
+      <input type="date"
+             name="date"
+             id="date"
+             value="{{dateForForm accident.date}}"
+             class="form-control"
+             required />
+    </div>
+    <div class="col">
+      <label for="time " class="form-label">Uur: <span class="text-danger">*</span></label>
+      <input type="time"
+             name="time"
+             id="time"
+             value="{{timeForForm accident.date}}"
+             class="form-control"
+             required />
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="location" class="form-label">Plaats <span class="text-danger">*</span></label>
+    <input type="text"
+           name="location"
+           id="location"
+           value="{{accident.location}}"
+           class="form-control"
+           required />
+  </div>
+
+  <div class="mb-3">
+    <label for="cause" class="form-label">Aanleiding <span class="text-danger">*</span></label>
+    <textarea name="cause" id="cause" class="form-control" rows="3" required>{{accident.cause}}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="injury" class="form-label">Letsel <span class="text-danger">*</span></label>
+    <textarea name="injury" id="injury" class="form-control" rows="3" required>{{accident.injury}}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="care" class="form-label">Gegeven verzorging <span class="text-danger">*</span></label>
+    <textarea name="care" id="care" class="form-control" rows="3" required>{{accident.care}}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <input type="checkbox" name="is_pinned" id="is_pinned" class="form-check-input"
+           {{#if accident.is_pinned}}checked{{/if}}>
+    <label for="is_pinned" class="form-label">Pinnen</label>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+
+  <button hx-get="/api/accident/show/{{accident.id}}?canceled=true"
+          hx-target="#accident-form-{{ accident.id }}"
+          hx-swap="outerHTML swap:300ms"
+          class="btn btn-outline-secondary my-3 w-100">Annuleren</button>
+</form>

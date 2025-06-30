@@ -1,0 +1,48 @@
+<form hx-put="/api/eval/update/tech/{{techEval.id}}"
+      hx-swap="outerHTML swap:300ms scroll:top"
+      id="eval-form-tech-{{ techEval.id }}"
+      class="list-group-item d-flex flex-column gap-1">
+
+  <div class="mb-2">
+    <label for="maatwerkcoach_id" class="form-label form-label-sm">
+      Coach <span class="text-danger">*</span>
+    </label>
+    <select name="maatwerkcoach_id" id="maatwerkcoach_id" class="form-select form-select-sm" required>
+      <option value=""></option>
+      {{#each maatwerkcoaches}}
+        <option value="{{ id }}" {{#ifEq id ../techEval.maatwerkcoach_id}}selected{{/ifEq}}>
+          {{firstname }} {{lastname}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mb-2">
+    <label for="technical_level_id" class="form-label form-label-sm">
+      Niveau <span class="text-danger">*</span>
+    </label>
+    <select name="technical_level_id" id="technical_level_id" class="form-select form-select-sm">
+      <option value=""></option>
+      {{#each techLevels}}
+        <option value="{{ id }}" {{#ifEq id ../techEval.technical_level_id}}selected{{/ifEq}}>
+          {{ category.name }} - {{ name }}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mb-2">
+    <label for="comment" class="form-label form-label-sm">Opmerking</label>
+    <textarea name="comment"
+              id="comment"
+              class="form-control form-control-sm"
+              rows="3">{{ techEval.comment }}</textarea>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+
+  <button hx-get="/api/eval/show/tech/{{techEval.id}}"
+          hx-target="#eval-form-tech-{{ techEval.id }}"
+          hx-swap="outerHTML swap:300ms"
+          class="btn btn-outline-secondary mt-3 w-100">Annuleren</button>
+</form>

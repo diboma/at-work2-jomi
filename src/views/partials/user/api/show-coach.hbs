@@ -1,0 +1,19 @@
+<li id="edit-coach-{{ maatwerker.id }}"
+    {{#if followingIds}}
+    data-following-ids="{{ followingIds }}"
+    {{/if}}
+    class="list-group-item bg-body-secondary d-flex justify-content-between">
+  <span>
+    <b>Maatwerkcoach:</b>
+    {{ maatwerker.meta.maatwerkcoach.firstname }} {{ maatwerker.meta.maatwerkcoach.lastname }}
+  </span>
+  <span class="btn btn-outline-warning border-0 rounded-circle d-inline-flex justify-content-center align-items-center"
+        title="Bewerken"
+        style="width: 32px; height: 32px;"
+        role="button"
+        hx-get="/api/user/edit/coach/{{ maatwerker.id }}"
+        hx-target="#edit-coach-{{ maatwerker.id }}"
+        hx-swap="outerHTML swap:300ms">
+    <span class="material-symbols-outlined" style="font-size: 32px;">draft_orders</span>
+  </span>
+</li>

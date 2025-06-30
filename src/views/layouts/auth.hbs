@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ pageTitle }} | Jomi VZW</title>
+
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+
+  {{!-- Material Symbols --}}
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        rel="stylesheet" />
+
+  {{!-- Bootstrap --}}
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/bootstrap.bundle.min.js" defer></script>
+</head>
+
+<body>
+
+  <main class='container d-flex flex-column justify-content-start align-items-center pt-5 vh-100'>
+    {{> flash}}
+    {{{body}}}
+  </main>
+
+</body>
+
+</html>

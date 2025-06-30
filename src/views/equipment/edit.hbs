@@ -1,0 +1,11 @@
+{{> linkButton url=urlBtnBack showLeftIcon=true label="Terug"}}
+
+<h1>{{pageTitle}}</h1>
+
+<div class='container d-flex flex-column justify-content-center align-items-center'
+     style="min-width: 20rem; max-width: 24rem">
+
+  {{> equipment/form-edit-equipment
+        urlCancel=urlBtnBack 
+        urlSubmit=urlSubmit
+    }}

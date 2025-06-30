@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ pageTitle }} | Jomi VZW</title>
+
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+
+  {{!-- Material Symbols --}}
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+        rel="stylesheet" />
+
+  {{!-- Bootstrap --}}
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/bootstrap.bundle.min.js" defer></script>
+
+  {{!-- Trix --}}
+  <link rel="stylesheet" type="text/css" href="/css/trix.css">
+  <script type="text/javascript" src="/js/trix.umd.min.js"></script>
+
+  {{!-- Sweet Alert --}}
+  <link rel="stylesheet" href="/css/sweetalert2.min.css">
+  <script src="/js/sweetalert2.all.min.js"></script>
+
+  {{!-- Htmx --}}
+  <script src="/js/htmx.min.js" defer></script>
+</head>
+
+</head>
+
+<body>
+  {{> navbar }}
+  <main class="container pb-5">
+    {{> flash}}
+    {{{body}}}
+  </main>
+  {{> footer }}
+</body>
+
+</html>

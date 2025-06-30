@@ -1,0 +1,48 @@
+<form action="/profiel/wijzig"
+      method="post"
+      enctype="multipart/form-data"
+      style="min-width: 100%;">
+
+  {{#each inputs}}
+    {{> form-input}}
+  {{/each}}
+
+  <div class="mb-3">
+    <label for="emergency_contact_id" class="form-label">Noodcontact</label>
+    <select name="emergency_contact_id" id="emergency_contact_id"
+            class="form-select" {{#unless isFormActive}}disabled{{/unless}}>
+      <option value=""></option>
+      {{#each emergencyContacts}}
+        <option value="{{ id }}" {{#ifEq id ../user.meta.emergency_contact_id}}selected{{/ifEq}}>{{ firstname }} {{ lastname }}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  {{#ifEq user.role.id 2}}
+    {{!-- Enkel voor maatwerkers --}}
+    <div class="mb-3">
+      <label for="workplace_id" class="form-label">Werkplaats</label>
+      <select name="workplace_id" id="workplace_id"
+              class="form-select" {{#unless isFormActive}}disabled{{/unless}}>
+        <option value=""></option>
+        {{#each workplaces}}
+          <option value="{{ id }}" {{#ifEq id ../user.meta.workplace_id}}selected{{/ifEq}}>{{ name }}</option>
+        {{/each}}
+      </select>
+    </div>
+  {{/ifEq}}
+
+  {{#if isFormActive}}
+    <div class="mb-3">
+      <label for="avatar" class="form-label">Avatar</label>
+      <input type="file" name="avatar" id="avatar" class="form-control">
+    </div>
+  {{/if}}
+
+  {{#if isFormActive}}
+    <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+    <a href="/profiel" class="btn btn-outline-secondary mt-3 w-100">Annuleren</a>
+  {{else}}
+    <a href="/profiel/wijzig" class="btn btn-secondary mt-3 w-100">Wijzig profiel</a>
+  {{/if}}
+</form>

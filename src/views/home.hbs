@@ -1,0 +1,133 @@
+<h1>{{pageTitle}}</h1>
+
+{{!-- VIEWED BY MAATWERKER --}}
+{{#ifEq user.role.id 2}}
+  <div class="row g-3 text-center app-centered-sm d-flex justify-content-center">
+    {{#each navItems}}
+      {{#unless (isEq slug 'home')}}
+        <a href="/{{slug}}"
+           class="col btn btn-outline-secondary m-2 
+                  d-flex justify-content-center align-items-center flex-column"
+           style="min-width: 200px;max-width: 200px;">
+          {{#if iconLarge}}
+            {{{iconLarge}}}
+          {{/if}}
+          {{name}}
+        </a>
+      {{/unless}}
+    {{/each}}
+  </div>
+{{/ifEq}}
+
+{{!-- VIEWED BY MAATWERKCOACH --}}
+{{#ifEq user.role.id 1}}
+
+  {{!-- FILTER --}}
+  <div class="mb-3 form-check d-flex justify-content-center align-items-center gap-2">
+    <input class="form-check-input" type="checkbox" value="" id="filter-followed-by-me">
+    <label class="form-check-label" for="filter-followed-by-me">
+      Toon enkel mijn maatwerkers
+    </label>
+  </div>
+
+  {{!-- CARD LIST --}}
+  <div class="row g-3 text-center app-centered">
+    {{#each maatwerkers}}
+      {{!-- CARD --}}
+      <div class="col {{#ifEq meta.maatwerkcoach.id ../user.id}}followed-by-me{{ else }}not-followed-by-me{{/ifEq}}">
+        <div class="card mx-auto shadow-sm position-relative " style="width: 18rem;"
+             role="button"
+             data-bs-toggle="modal"
+             data-bs-target="#{{ id }}">
+          <span class="pin-followed material-symbols-outlined position-absolute top-0 end-0 text-jomi-green m-1
+                       {{#unless (isEq meta.maatwerkcoach.id ../user.id)}}d-none{{/unless}}"
+                data-maatwerker-id="{{ id }}">
+            keep
+          </span>
+          <div class="card-body d-flex gap-2 align-items-center">
+            {{#if meta.avatar_url}}
+              {{#if (contains meta.avatar_url 'https://')}}
+                <img src="{{meta.avatar_url}}"
+                     alt="avatar van {{firstname}} {{lastname}}"
+                     class="rounded-circle"
+                     style="width:4rem;height:4rem;">
+              {{else}}
+                <img src="{{ ../avatarViewPath }}/{{meta.avatar_url}}"
+                     alt="avatar van {{firstname}} {{lastname}}"
+                     class="rounded-circle"
+                     style="width:4rem;height:4rem;">
+              {{/if}}
+            {{else}}
+              <span class="material-symbols-outlined" style="font-size: 4rem;color: #999">account_circle</span>
+            {{/if}}
+            <h5 class="card-title">{{ firstname }} {{ lastname }}</h5>
+          </div>
+        </div>
+      </div>
+
+      {{!-- MODAL --}}
+      <div class="modal fade" id="{{ id }}" aria-labelledby="modalLabel-{{ id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="fs-2" id="modalLabel-{{ id }}">{{ firstname }} {{ lastname }}</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {{!-- USER DETAILS --}}
+            <div class="modal-body text-start">
+              <ul class="list-group">
+                <li id="edit-coach-{{ id }}"
+                    class="list-group-item bg-body-secondary d-flex justify-content-between">
+                  <span>
+                    <b>Maatwerkcoach:</b>
+                    {{ meta.maatwerkcoach.firstname }} {{ meta.maatwerkcoach.lastname }}
+                  </span>
+                  <span class="btn btn-outline-warning border-0 rounded-circle d-inline-flex justify-content-center align-items-center"
+                        title="Bewerken"
+                        style="width: 32px; height: 32px;"
+                        role="button"
+                        hx-get="/api/user/edit/coach/{{ id }}"
+                        hx-target="#edit-coach-{{ id }}"
+                        hx-swap="outerHTML swap:300ms">
+                    <span class="material-symbols-outlined" style="font-size: 32px;">draft_orders</span>
+                  </span>
+                </li>
+                <li class="list-group-item bg-body-secondary"><b>Werkplaats:</b> {{ meta.workplace.name }}</li>
+                <li class="list-group-item bg-body-secondary"><b>RRN:</b> {{ meta.RRN }}</li>
+                <li class="list-group-item bg-body-secondary"><b>E-mail:</b> {{ email }}</li>
+                <li class="list-group-item bg-body-secondary"><b>Telefoon:</b> {{ meta.phone }}</li>
+                <li class="list-group-item bg-body-secondary"><b>Adres:</b> {{ meta.address }}</li>
+                <li class="list-group-item bg-body-secondary"><b>Communicatievoorkeur:</b> {{ meta.communication_preference }}</li>
+                <li class="list-group-item bg-body-secondary"><b>Ziekenfonds:</b> {{ meta.health_insurance_fund }}</li>
+                <li class="list-group-item bg-body-secondary">
+                  <b>Noodcontact:</b> {{ meta.emergency_contact.firstname }} {{ meta.emergency_contact.lastname }},
+                  tel: {{ meta.emergency_contact.phone }}
+                </li>
+              </ul>
+            </div>
+            {{!-- LINKS --}}
+            <div class="modal-footer d-flex justify-content-center gap-1">
+              {{#each ../navItems}}
+                {{#unless (isEq slug 'home')}}
+                  {{#unless (isEq slug 'profiel')}}
+                    {{#unless (isEq slug 'technische-fiches')}}
+                      <a href="/{{slug}}/{{../id}}" class="btn btn-sm btn-outline-secondary d-flex gap-1 align-items-center">
+                        {{#if iconSmall}}
+                          {{{iconSmall}}}
+                        {{/if}}
+                        <span class="mb-1">{{name}}</span>
+                      </a>
+                    {{/unless}}
+                  {{/unless}}
+                {{/unless}}
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {{/each}}
+  </div>
+{{/ifEq}}
+
+<script src="/js/pages/homepage.js" defer></script>

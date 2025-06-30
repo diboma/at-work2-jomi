@@ -1,0 +1,88 @@
+<main class='container mt-3'>
+
+  <h1 class="mb-3">{{pageTitle}}</h1>
+
+  <p>Hello, {{user.firstname}}</p>
+  <p>Your last name is: {{user.lastname}}</p>
+  <p>Your email: {{user.email}}</p>
+  <p>Your role: {{user.role.name}}</p>
+
+  <div class='d-flex gap-3 my-3'>
+    <span class='material-symbols-outlined'>home</span>
+    <span class='material-symbols-outlined text-danger'>delete</span>
+    <span class='material-symbols-outlined text-warning'>edit</span>
+    <span class='material-symbols-outlined text-success'>save</span>
+  </div>
+
+  <div class='alert alert-primary' role='alert'>
+    A simple primary alert—check it out!
+  </div>
+  <div class='alert alert-success' role='alert'>
+    A simple success alert—check it out!
+  </div>
+  <div class='alert alert-danger' role='alert'>
+    A simple danger alert—check it out!
+  </div>
+  <div class='alert alert-warning' role='alert'>
+    A simple warning alert—check it out!
+  </div>
+  <div class='alert alert-info' role='alert'>
+    A simple info alert—check it out!
+  </div>
+
+  {{!-- Trix editor --}}
+  <h3 class='mt-5 mb-3 bg-light p-1'>Trix Editor</h3>
+  <trix-editor class="trix-content"></trix-editor>
+  <script type="text/javascript">
+    // Remove file upload tools
+    (function () {
+      addEventListener("trix-initialize", function (e) {
+        const file_tools = document.querySelector(".trix-button-group--file-tools");
+        file_tools.remove();
+      })
+      addEventListener("trix-file-accept", function (e) {
+        e.preventDefault();
+      })
+    })();
+  </script>
+
+  {{!-- CKEditor --}}
+  {{!-- <h3 class='mt-5 mb-3 bg-light p-1'>CKEditor</h3>
+  <div id='editor' style="min-height: 500px;"></div>
+  <script src='js/ckeditor/ckeditor.js'></script>
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#editor'))
+      .catch(error => {
+        console.error(error);
+      });
+  </script>
+  <style>
+    .ck-editor__editable_inline {
+      min-height: 250px;
+    }
+  </style> --}}
+
+
+  {{!-- Accordion --}}
+  {{#each evalStages}}
+    <div class="accordion app-centered-sm" id="accordion-evals">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse-{{ id }}"
+                  aria-expanded="false"
+                  aria-controls="collapse-{{ id }}">
+            {{ name }}
+          </button>
+        </h2>
+        <div id="collapse-{{ id }}" class="accordion-collapse collapse" data-bs-parent="#accordion-evals">
+          <div class="accordion-body">
+            Inhoud voor fase {{ name }}
+          </div>
+        </div>
+      </div>
+  {{/each}}
+</main>

@@ -1,0 +1,105 @@
+<form action="{{ urlSubmit }}" method="post" class="w-100 mt-4">
+
+  <div class="mb-3">
+    <label for="training_type_id" class="form-label">
+      Type <span class="text-danger">*</span>
+    </label>
+    <select name="training_type_id"
+            id="training_type_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each trainingTypes}}
+        <option value="{{ id }}">{{ name }}</option>
+      {{/each}}
+    </select>
+    {{#if inputErrors.training_type_id}}
+      <p class="text-danger">{{inputErrors.training_type_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="indicated_by_coach" class="form-label">Nood verwoord door <span class="text-danger">*</span></label>
+    <select name="indicated_by_coach" id="indicated_by_coach" class="form-select" required>
+      <option value=""></option>
+      <option value="0">Maatwerker</option>
+      <option value="1">Coach</option>
+    </select>
+    {{#if inputErrors.indicated_by_coach}}
+      <p class="text-danger">{{inputErrors.indicated_by_coach}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3 row">
+    <div class="col">
+      <label for="date " class="form-label">Datum <span class="text-danger">*</span></label>
+      <input type="date"
+             name="date"
+             id="date"
+             class="form-control"
+             required />
+      {{#if inputErrors.date}}
+        <p class="text-danger">{{inputErrors.date}}</p>
+      {{/if}}
+
+    </div>
+    <div class="col">
+      <label for="time " class="form-label">Uur: <span class="text-danger">*</span></label>
+      <input type="time"
+             name="time"
+             id="time"
+             class="form-control"
+             required />
+      {{#if inputErrors.time}}
+        <p class="text-danger">{{inputErrors.time}}</p>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="location" class="form-label">Plaats <span class="text-danger">*</span></label>
+    <input type="text"
+           name="location"
+           id="location"
+           class="form-control"
+           required />
+    {{#if inputErrors.location}}
+      <p class="text-danger">{{inputErrors.location}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Onderwerp <span class="text-danger">*</span></label>
+    <input type="text"
+           name="title"
+           id="title"
+           class="form-control"
+           required />
+    {{#if inputErrors.title}}
+      <p class="text-danger">{{inputErrors.title}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Inhoud</label>
+    <textarea name="content"
+              id="content"
+              class="form-control"
+              rows="3"></textarea>
+    {{#if inputErrors.content}}
+      <p class="text-danger">{{inputErrors.content}}</p>
+    {{/if}}
+  </div>
+  <div class="mb-3">
+    <label for="comment" class="form-label">Opmerking</label>
+    <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <input type="checkbox" name="is_pinned" id="is_pinned" class="form-check-input">
+    <label for="is_pinned" class="form-label">Pinnen</label>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+  <a href="{{urlCancel}}" class="btn btn-outline-secondary mt-3 w-100">Annuleren</a>
+</form>

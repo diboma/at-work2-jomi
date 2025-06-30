@@ -1,0 +1,4 @@
+src/middleware/validation/LoginValidation.js
+src/middleware/validation/RegisterValidation.js
+src/views/layouts/auth.hbs
+src/database/seeders/seeder-data/icf-codes.js

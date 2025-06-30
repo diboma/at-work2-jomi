@@ -1,0 +1,51 @@
+{
+  "name": "jomi-vzw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env T2=Europe/Brussels nodemon ./src/app.js --config nodemon.json",
+    "prod": "cross-env T2=Europe/Brussels node ./src/app.js",
+    "sass:watch": "sass --watch ./scss/bootstrap.scss ./public/css/styles.css --style compressed --no-source-map",
+    "sass:build": "sass ./scss/bootstrap.scss ./public/css/styles.css --style compressed --no-source-map",
+    "start:dev": "concurrently \"npm run sass:watch\" \"npm run dev\"",
+    "start": "npm run sass:build && npm run prod"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bluebird": "^3.7.2",
+    "bootstrap": "^5.3.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-handlebars": "^7.1.2",
+    "express-redirect-with-flash": "^0.0.1",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.0.1",
+    "handlebars": "^4.7.8",
+    "joi": "^17.13.1",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "marked": "^12.0.2",
+    "method-override": "^3.0.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
+    "nodemailer-express-handlebars": "^6.1.2",
+    "nodemon": "^3.1.0",
+    "objection": "^3.1.4",
+    "sharp": "^0.33.4",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "concurrently": "^8.2.2",
+    "sass": "^1.77.1"
+  }
+}

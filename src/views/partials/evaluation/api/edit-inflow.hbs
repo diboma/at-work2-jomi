@@ -1,0 +1,45 @@
+<form hx-put="/api/eval/update/inflow/{{inflowEval.id}}"
+      hx-swap="outerHTML swap:300ms scroll:top"
+      id="eval-form-{{ inflowEval.id }}"
+      class="list-group-item d-flex flex-column gap-1">
+
+  <div class="mb-2">
+    <label for="maatwerkcoach_id" class="form-label form-label-sm">
+      Coach <span class="text-danger">*</span>
+    </label>
+    <select name="maatwerkcoach_id" id="maatwerkcoach_id" class="form-select form-select-sm" required>
+      <option value=""></option>
+      {{#each maatwerkcoaches}}
+        <option value="{{ id }}" {{#ifEq id ../inflowEval.maatwerkcoach_id}}selected{{/ifEq}}>
+          {{firstname }} {{lastname}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mb-2">
+    <label for="content" class="form-label form-label-sm">
+      Inhoud <span class="text-danger">*</span>
+    </label>
+    <textarea name="content"
+              id="content"
+              class="form-control form-control-sm"
+              rows="3"
+              required>{{ inflowEval.content }}</textarea>
+  </div>
+
+  <div class="mb-2">
+    <label for="comment" class="form-label form-label-sm">Opmerking</label>
+    <textarea name="comment"
+              id="comment"
+              class="form-control form-control-sm"
+              rows="3">{{ inflowEval.comment }}</textarea>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+
+  <button hx-get="/api/eval/show/inflow/{{inflowEval.id}}"
+          hx-target="#eval-form-{{ inflowEval.id }}"
+          hx-swap="outerHTML swap:300ms"
+          class="btn btn-outline-secondary mt-3 w-100">Annuleren</button>
+</form>

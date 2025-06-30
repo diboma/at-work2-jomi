@@ -1,0 +1,24 @@
+<form id="form-{{ maatwerker.id }}"
+      hx-put="/api/user/update/coach/{{ maatwerker.id }}"
+      hx-swap="outerHTML swap:300ms scroll:top"
+      class="mb-3">
+
+  <select name="maatwerkcoach_id" id="maatwerkcoach_id" class="form-select">
+    <option value="">Kies een maatwerkercoach</option>
+    {{#each maatwerkcoaches}}
+      <option value="{{id}}"
+              {{#ifEq id ../maatwerker.meta.maatwerkcoach.id}}selected{{/ifEq}}>
+        {{firstname}} {{lastname}}
+      </option>
+    {{/each}}
+  </select>
+
+  <button type="submit"
+          class="btn btn-secondary mt-3 w-100">Opslaan</button>
+
+  <button hx-get="/api/user/show/coach/{{maatwerker.id}}"
+          hx-target="#form-{{ maatwerker.id }}"
+          hx-swap="outerHTML swap:300ms"
+          class="btn btn-outline-secondary mt-3 w-100">Annuleren</button>
+
+</form>

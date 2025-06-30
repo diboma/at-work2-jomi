@@ -1,0 +1,82 @@
+<h2 class="text-center">Type: {{type}}</h2>
+
+<form action="{{ urlSubmit }}" method="post" class="w-100 mt-4">
+
+  <input type="hidden" name="fase" value="{{ fase }}">
+
+  <div class="mb-3">
+    <label for="evaluation_stage_id" class="form-label">Fase <span class="text-danger">*</span></label>
+    <select name="evaluation_stage_id"
+            id="evaluation_stage_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each evalStages}}
+        {{#unless (isEq slug 'instroom')}}
+          <option value="{{ id }}">{{ name }}</option>
+        {{/unless}}
+      {{/each}}
+    </select>
+    {{#if inputErrors.evaluation_stage_id}}
+      <p class="text-danger">{{inputErrors.evaluation_stage_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="icf_category_id" class="form-label">Categorie <span class="text-danger">*</span></label>
+    <select name="icf_category_id"
+            id="icf_category_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each icfCategories}}
+        <option value="{{ id }}" data-category="{{ slug }}">{{ name }}</option>
+      {{/each}}
+    </select>
+    {{#if inputErrors.icf_category_id}}
+      <p class="text-danger">{{inputErrors.icf_category_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="icf_code_id" class="form-label">Typering <span class="text-danger">*</span></label>
+    <select name="icf_code_id"
+            id="icf_code_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each icfCodes}}
+        <option value="{{ id }}" data-category="{{ category.slug }}">{{ name }}</option>
+      {{/each}}
+    </select>
+    {{#if inputErrors.icf_code_id}}
+      <p class="text-danger">{{inputErrors.icf_code_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="icf_rating_id" class="form-label">Beoordeling <span class="text-danger">*</span></label>
+    <select name="icf_rating_id"
+            id="icf_rating_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each icfRatings}}
+        <option value="{{ id }}" data-category="{{ category.slug }}">{{ title }} - {{ rating }}</option>
+      {{/each}}
+    </select>
+    {{#if inputErrors.icf_rating_id}}
+      <p class="text-danger">{{inputErrors.icf_rating_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="comment" class="form-label">Opmerking</label>
+    <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+  <a href="{{urlCancel}}" class="btn btn-outline-secondary mt-3 w-100">Annuleren</a>
+</form>
+
+<script src="/js/pages/icf-evaluation.js" defer"></script>

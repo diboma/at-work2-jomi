@@ -1,0 +1,19 @@
+{{!-- 
+      Link Button
+      @param {string} url
+      @param {string} label
+      @param {boolean} showLeftIcon
+      @param {boolean} showRightIcon
+ --}}
+
+<a href="{{ url }}"
+   class="btn btn-outline-secondary d-flex justify-content-center align-items-center mb-4"
+   style="width: 100px;">
+  {{#if showLeftIcon}}
+    <span class="material-symbols-outlined">chevron_left</span>
+  {{/if}}
+  <span class="mb-1">{{ label }}</span>
+  {{#if showRightIcon}}
+    <span class="material-symbols-outlined">chevron_left</span>
+  {{/if}}
+</a>

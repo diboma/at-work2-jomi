@@ -1,0 +1,64 @@
+<h2 class="text-center">Type: {{type}}</h2>
+
+<form action="{{ urlSubmit }}" method="post" class="w-100 mt-4">
+
+  <input type="hidden" name="fase" value="{{ fase }}">
+
+  <div class="mb-3">
+    <label for="evaluation_stage_id" class="form-label">Fase <span class="text-danger">*</span></label>
+    <select name="evaluation_stage_id"
+            id="evaluation_stage_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each evalStages}}
+        {{#unless (isEq slug 'instroom')}}
+          <option value="{{ id }}">{{ name }}</option>
+        {{/unless}}
+      {{/each}}
+    </select>
+    {{#if inputErrors.evaluation_stage_id}}
+      <p class="text-danger">{{inputErrors.evaluation_stage_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="machine_id" class="form-label">Machine <span class="text-danger">*</span></label>
+    <select name="machine_id"
+            id="machine_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each machines}}
+        <option value="{{ id }}">{{ name }}</option>
+      {{/each}}
+    </select>
+    {{#if inputErrors.machine_id}}
+      <p class="text-danger">{{inputErrors.machine_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="technical_level_id" class="form-label">Beoordeling <span class="text-danger">*</span></label>
+    <select name="technical_level_id"
+            id="technical_level_id"
+            class="form-select"
+            required>
+      <option value=""></option>
+      {{#each techLevels}}
+        <option value="{{ id }}">{{ name }}</option>
+      {{/each}}
+    </select>
+    {{#if inputErrors.technical_level_id}}
+      <p class="text-danger">{{inputErrors.technical_level_id}}</p>
+    {{/if}}
+  </div>
+
+  <div class="mb-3">
+    <label for="comment" class="form-label">Opmerking</label>
+    <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+  <a href="{{urlCancel}}" class="btn btn-outline-secondary mt-3 w-100">Annuleren</a>
+</form>

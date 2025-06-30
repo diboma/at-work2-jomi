@@ -1,0 +1,70 @@
+<div class="accordion-item"
+     id="accordion-{{ accident.id }}"
+     {{#if hasPinnedItem}}
+     data-has-pinned-item="{{ hasPinnedItem}}"
+     data-pinned-item-id="{{ pinnedItemId }}"
+     data-pinned-item-title="{{ pinnedItemTitle }}"
+     data-pinned-item-html="{{ pinnedItemHtml }}"
+     {{/if}}>
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse-{{ accident.id }}"
+            aria-expanded="false"
+            aria-controls="collapse-{{ accident.id }}">
+      {{dateTime accident.date }} te {{ accident.location }}
+    </button>
+  </h2>
+  <div id="collapse-{{ accident.id }}"
+       data-collapse-id="collapse-{{ accident.id }}"
+       class="accordion-collapse collapse" data-bs-parent="#accordion-accidents">
+    <div class="accordion-body">
+      <ul class="list-group list-group-flush">
+        <li id="item-{{ accident.id }}"
+            class="list-group-item d-flex flex-column gap-1 
+                       {{#if accident.is_pinned }}bg-success-subtle border border-success-subtle border-start-0 border-end-0{{/if}}">
+          <div class="d-flex justify-content-between flex-wrap">
+            <span><strong>Datum: </strong>{{dateTime accident.date }}</span>
+            <div class="d-flex gap-2">
+              <span class="material-symbols-outlined text-warning"
+                    role="button"
+                    hx-get="/api/accident/edit/{{accident.id}}"
+                    hx-target="#item-{{accident.id}}"
+                    hx-swap="outerHTML swap:300ms">edit</span>
+              <span class="material-symbols-outlined text-danger"
+                    role="button"
+                    hx-delete="/api/accident/delete/{{accident.id}}"
+                    hx-target="#accordion-{{accident.id}}"
+                    hx-trigger="confirmed"
+                    onClick="Swal.mixin(swalBootstrapMixin).fire(swalFireOptions).then((result)=> {
+                          if (result.isConfirmed) {
+                            htmx.trigger(this, 'confirmed');
+                          }
+                        });"
+                    hx-swap="outerHTML swap:300ms">delete</span>
+            </div>
+          </div>
+
+          <span><strong>Gemeld door: </strong>{{accident.reportedBy.firstname }} {{accident.reportedBy.lastname}}</span>
+          <span><strong>Plaats: </strong>{{ accident.location }}</span>
+          <span><strong>Aanleiding: </strong>{{ accident.cause }}</span>
+          <span><strong>Letsel: </strong>{{ accident.injury }}</span>
+          <span><strong>Gegeven verzorging: </strong>{{ accident.care }}</span>
+
+          {{#if accident.is_pinned}}
+            <div class="d-flex align-items-center text-success">
+              <strong>Gepind</strong>
+              <span class="material-symbols-outlined ms-2">keep</span>
+            </div>
+            {{ else }}
+            <div class="d-flex align-items-center text-secondary">
+              <strong>Niet gepind</strong>
+              <span class="material-symbols-outlined ms-2">keep_off</span>
+            </div>
+          {{/if}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

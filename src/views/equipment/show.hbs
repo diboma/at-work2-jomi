@@ -1,0 +1,22 @@
+<h1>
+  {{pageTitle}}
+  {{#if isCoach}}
+    {{> btn-edit-resource urlEdit=urlEdit}}
+  {{/if}}
+</h1>
+
+<ul class="mt-5 list-group app-centered-sm">
+  {{#each equipmentTypes as |type|}}
+    {{#if (ownsEquipment ../equipments type.id)}}
+      <li class="list-group-item d-flex align-items-center text-success gap-2">
+        <span class="material-symbols-outlined">done_outline</span>
+        <span>{{type.name}} - ontvangen op {{dateReceivedEquipment ../equipments type.id  }}</span>
+      </li>
+    {{else}}
+      <li class="list-group-item d-flex align-items-center text-secondary gap-2">
+        <span class="material-symbols-outlined">not_interested</span>
+        <span>{{type.name}}</span>
+      </li>
+    {{/if}}
+  {{/each}}
+</ul>

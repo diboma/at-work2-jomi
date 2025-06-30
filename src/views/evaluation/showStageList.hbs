@@ -1,0 +1,15 @@
+<h1>{{pageTitle}}</h1>
+
+<div class="row g-3 text-center app-centered-sm d-flex justify-content-center">
+  {{#each evalStages}}
+    <a href="/evaluatie/{{ ../maatwerker.id }}/{{ slug }}"
+       class="col btn btn-outline-secondary m-2 shadow-sm
+              d-flex justify-content-center align-items-center flex-column"
+       style="min-width: 200px;max-width: 200px;">
+      {{#if iconLarge}}
+        {{{iconLarge}}}
+      {{/if}}
+      {{name}}
+    </a>
+  {{/each}}
+</div>

@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-xl bg-body-secondary mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="/images/logo-192.webp" alt="logo" width="42">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        {{#each navItems as |navItem|}}
+          {{#unless (isEq navItem.slug 'profiel')}}
+            <a class="nav-link {{#ifEq ../activeNav navItem.slug}}active{{/ifEq}}"
+               href="{{ navItem.path }}">
+              {{ navItem.name }}
+            </a>
+          {{/unless}}
+        {{/each}}
+      </div>
+      <hr class="d-xl-none">
+      <div class="navbar-nav ms-auto me-3">
+        <a class="nav-link {{#ifEq activeNav 'profiel'}}active{{/ifEq}} d-flex align-items-center"
+           href="/profiel">
+          <span class="material-symbols-outlined">person</span>
+          <span>Profiel</span>
+        </a>
+        <form action="/logout" method="post">
+          <button type="submit" class="nav-link d-flex align-items-center">
+            <span class="material-symbols-outlined">logout</span>
+            <span>Logout</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>

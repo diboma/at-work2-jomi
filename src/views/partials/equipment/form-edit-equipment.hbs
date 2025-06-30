@@ -1,0 +1,24 @@
+<form action="{{ urlSubmit }}" method="post" class="w-100 mt-4">
+
+  {{#each equipmentTypes}}
+    <div class="mb-3 form-check">
+
+      {{#if (contains ../inPosssessionOfIds id)}}
+        <input type="hidden"
+               name="date-{{ slug }}"
+               value="{{dateReceivedEquipmentForHiddenInput ../equipments id  }}">
+      {{/if}}
+
+      <input type="checkbox"
+             id="{{ slug }}"
+             name="{{ slug }}"
+             value="{{ id }}"
+             {{#if (contains ../inPosssessionOfIds id)}}checked{{/if}}
+             class="form-check-input">
+      <label for="{{ slug }}" class="form-check-label">{{ name }}</label>
+    </div>
+  {{/each}}
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+  <a href="{{urlCancel}}" class="btn btn-outline-secondary mt-3 w-100">Annuleren</a>
+</form>

@@ -1,0 +1,115 @@
+{{#if latestPinnedTraining}}
+  {{> pinned-item type="success" item=latestPinnedTraining}}
+{{/if}}
+
+<h1>
+  {{pageTitle}}
+  {{#if isCoach}}
+    {{> btn-add-resource urlAdd=urlAddTraining}}
+  {{/if}}
+</h1>
+
+{{!-- Toggle accordion collapse all --}}
+<div class="mb-3 form-check d-flex justify-content-center align-items-center gap-2">
+  <input class="form-check-input toggle-collapse" type="checkbox" value="" id="toggle-collapse">
+  <label class="form-check-label" for="toggle-collapse">
+    Alles tonen
+  </label>
+</div>
+
+{{!-- Accordion --}}
+<div class="accordion app-centered-sm" id="accordion-trainings">
+  {{#each trainingTypes}}
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-{{ id }}"
+                aria-expanded="false"
+                aria-controls="collapse-{{ id }}">
+          {{ name }}
+        </button>
+      </h2>
+      <div id="collapse-{{ id }}" class="accordion-collapse collapse" data-bs-parent="#accordion-trainings">
+        <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+            {{#each ../trainings}}
+              {{#ifEq ../id training_type_id }}
+                <li id="item-{{ id }}"
+                    data-collapse-id="collapse-{{ ../id }}"
+                    class="list-group-item d-flex flex-column gap-1 
+                    {{#if is_pinned }}bg-success-subtle border border-success-subtle border-start-0 border-end-0{{/if}}">
+                  <div class="d-flex justify-content-between flex-wrap">
+                    <span><strong>Datum: </strong>{{dateTime date }}</span>
+                    {{#if ../../isCoach}}
+                      <div class="d-flex gap-2">
+                        <span class="material-symbols-outlined text-warning"
+                              role="button"
+                              hx-get="/api/training/edit/{{id}}"
+                              hx-target="#item-{{ id }}"
+                              hx-swap="outerHTML swap:300ms">edit</span>
+                        <span class="material-symbols-outlined text-danger"
+                              role="button"
+                              hx-delete="/api/training/delete/{{id}}"
+                              hx-target="#item-{{ id }}"
+                              hx-trigger="confirmed"
+                              onClick="Swal.mixin(swalBootstrapMixin).fire(swalFireOptions).then((result)=> {
+                                if (result.isConfirmed) {
+                                  htmx.trigger(this, 'confirmed');
+                                }
+                              });"
+                              hx-swap="outerHTML swap:300ms">delete</span>
+                      </div>
+                    {{/if}}
+                  </div>
+
+                  <span><strong>Type: </strong>{{ type.name }}</span>
+                  <span><strong>Onderwerp: </strong>{{ title }}</span>
+                  <span><strong>Plaats: </strong>{{ location }}</span>
+                  <span><strong>Coach: </strong>{{maatwerkcoach.firstname }} {{maatwerkcoach.lastname}}</span>
+
+                  <span>
+                    <strong>Nood verwoord door: </strong>
+                    {{#if indicated_by_coach}}coach{{ else }}maatwerker{{/if}}
+                  </span>
+
+
+                  {{#if content}}
+                    <span><strong>Inhoud: </strong>{{ content }}</span>
+                  {{/if}}
+
+                  {{#if comment}}
+                    <span><strong>Opmerking: </strong>{{ comment }}</span>
+                  {{/if}}
+
+                  {{#if is_completed}}
+                    <div class="d-flex align-items-center text-jomi-green">
+                      <strong>Afgewerkt</strong>
+                      <span class="material-symbols-outlined ms-2">done_outline</span>
+                    </div>
+                  {{/if}}
+
+                  {{#if is_pinned}}
+                    <div class="d-flex align-items-center text-success">
+                      <strong>Gepind</strong>
+                      <span class="material-symbols-outlined ms-2">keep</span>
+                    </div>
+                    {{ else }}
+                    <div class="d-flex align-items-center text-secondary">
+                      <strong>Niet gepind</strong>
+                      <span class="material-symbols-outlined ms-2">keep_off</span>
+                    </div>
+                  {{/if}}
+                </li>
+              {{/ifEq}}
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+{{!-- Add some javascript --}}
+<script src="/js/pages/common.js" defer></script>

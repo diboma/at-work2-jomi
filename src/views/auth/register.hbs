@@ -1,0 +1,34 @@
+<div class="card card-auth">
+
+  <div class="card-header position-relative bg-body-secondary">
+    <img src="/images/logo-192.webp"
+         width="42"
+         class="position-absolute top-0 end-0 mt-2 me-2"
+         alt="logo">
+    <h3>Registreren</h3>
+  </div>
+
+  <div class="card-body">
+
+    <form action="/register" method="post">
+      {{#each inputs}}
+        {{> form-input}}
+      {{/each}}
+
+      <div class="mb-3">
+        <label for="role" class="form-label">Bevoegd als</label>
+        <select name="role" id="roles" class="form-select">
+          {{#each roles}}
+            <option value="{{ id }}">{{ name }}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-secondary mt-3 w-100">Registreer</button>
+    </form>
+  </div>
+
+  <div class="card-footer">
+    <a href="/login" class="small">Al geregistreerd? Inloggen</a>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<li id="item-{{ observation.id }}"
+    data-collapse-id="collapse-{{ observation.type.id }}"
+    {{#if hasPinnedItem}}
+    data-has-pinned-item="{{ hasPinnedItem}}"
+    data-pinned-item-id="{{ pinnedItemId }}"
+    data-pinned-item-title="{{ pinnedItemTitle }}"
+    data-pinned-item-html="{{ pinnedItemHtml }}"
+    {{/if}}
+    class="list-group-item d-flex flex-column gap-1 
+           {{#if observation.is_pinned }}
+             bg-success-subtle border border-success-subtle border-start-0 border-end-0
+           {{/if}}">
+  <div class="d-flex justify-content-between flex-wrap">
+    <span><strong>Datum: </strong>{{dateTime observation.updated_at }}</span>
+    <div class="d-flex gap-2">
+      <span class="material-symbols-outlined text-warning"
+            role="button"
+            hx-get="/api/observation/edit/{{observation.id}}"
+            hx-target="#item-{{ observation.id }}"
+            hx-swap="outerHTML swap:300ms">edit</span>
+
+      <span class="material-symbols-outlined text-danger"
+            role="button"
+            hx-delete="/api/observation/delete/{{observation.id}}"
+            hx-target="#item-{{ observation.id }}"
+            hx-trigger="confirmed"
+            onClick="Swal.mixin(swalBootstrapMixin).fire(swalFireOptions).then((result)=> {
+                if (result.isConfirmed) {
+                  htmx.trigger(this, 'confirmed');
+                }
+              });"
+            hx-swap="outerHTML swap:300ms">delete</span>
+    </div>
+  </div>
+  <span><strong>Coach: </strong>{{observation.maatwerkcoach.firstname }} {{observation.maatwerkcoach.lastname}}</span>
+  <span><strong>Type: </strong>{{ observation.type.name }}</span>
+  <span><strong>Inhoud: </strong>{{ observation.content }}</span>
+  {{#if observation.comment}}
+    <span><strong>Opmerking: </strong>{{ observation.comment }}</span>
+  {{/if}}
+
+  {{#if observation.is_pinned}}
+    <div class="d-flex align-items-center text-success">
+      <strong>Gepind</strong>
+      <span class="material-symbols-outlined ms-2">keep</span>
+    </div>
+    {{ else }}
+    <div class="d-flex align-items-center text-secondary">
+      <strong>Niet gepind</strong>
+      <span class="material-symbols-outlined ms-2">keep_off</span>
+    </div>
+  {{/if}}
+
+</li>

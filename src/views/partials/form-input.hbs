@@ -1,0 +1,16 @@
+<div class="mb-3">
+  {{#unless (isEq type "hidden")}}
+    <label for="{{name}}" class="form-label">
+      {{label}} {{#if required}}<span class="text-danger">*</span>{{/if}}
+    </label>
+  {{/unless}}
+  {{#if instructions}}
+    <div class="text-muted small">{{instructions}}</div>
+  {{/if}}
+  <input type="{{type}}" name="{{name}}" id="{{name}}" value="{{value}}" class="form-control"
+         {{#if disabled}}disabled{{/if}} {{#if readonly}}readonly{{/if}}
+         {{#if pattern}}pattern="{{pattern}}" {{/if}}>
+  {{#if error}}
+    <div class="small text-danger">{{error}}</div>
+  {{/if}}
+</div>

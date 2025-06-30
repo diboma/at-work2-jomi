@@ -1,0 +1,13 @@
+<h1>{{pageTitle}}</h1>
+
+<div class="row g-3 text-center app-centered-sm d-flex justify-content-center">
+  {{#each machines}}
+    <a href="/technische-fiches/{{slug}}"
+       class="col btn btn-outline-secondary m-2 shadow-sm 
+              d-flex justify-content-center align-items-center flex-column"
+       style="min-width: 200px;max-width: 200px;">
+      <img src="/images/machines/{{slug}}.webp" alt="{{ name }}">
+      {{name}}
+    </a>
+  {{/each}}
+</div>

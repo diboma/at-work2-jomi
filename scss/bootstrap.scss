@@ -1,0 +1,121 @@
+// 1. Include functions first
+// --------------------------
+@import '../node_modules/bootstrap/scss/functions';
+
+// 2. Include any default variable overrides here
+// ----------------------------------------------
+$navbar-light-active-color: hsl(87, 86%, 42%);
+
+$accordion-button-active-bg: hsl(210, 16%, 93%);
+$accordion-button-active-color: hsl(240, 5%, 25%);
+$accordion-button-focus-border-color: hsl(240, 5%, 25%); // Deprecated in v5.3.3
+$accordion-button-focus-box-shadow: 0 0 0 0.25rem hsla(240, 5%, 25%, 0.25);
+
+// 3. Include remainder of required Bootstrap stylesheets
+//    (including any separate color mode stylesheets)
+// ------------------------------------------------------
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/variables-dark';
+
+// 4. Include any default map overrides here
+// -----------------------------------------
+
+// Create custom colors map
+$custom-colors: (
+  'jomi-green': hsl(87, 86%, 42%),
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+// 5. Include remainder of required parts
+// --------------------------------------
+@import '../node_modules/bootstrap/scss/maps';
+@import '../node_modules/bootstrap/scss/mixins';
+@import '../node_modules/bootstrap/scss/root';
+
+// 6. Optionally include any other parts as needed
+// ------------------------------------------------
+@import '../node_modules/bootstrap/scss/bootstrap'; // all of Bootstrap
+// @import '../node_modules/bootstrap/scss/utilities';
+// @import '../node_modules/bootstrap/scss/reboot';
+// @import '../node_modules/bootstrap/scss/type';
+// @import '../node_modules/bootstrap/scss/images';
+// @import '../node_modules/bootstrap/scss/containers';
+// @import '../node_modules/bootstrap/scss/grid';
+// @import '../node_modules/bootstrap/scss/helpers';
+// @import '../node_modules/bootstrap/scss/buttons';
+// @import '../node_modules/bootstrap/scss/alert';
+// @import '../node_modules/bootstrap/scss/helpers';
+// @import '../node_modules/bootstrap/scss/navbar';
+// @import '../node_modules/bootstrap/scss/nav';
+// @import '../node_modules/bootstrap/scss/forms';
+// @import '../node_modules/bootstrap/scss/tables';
+
+// 7. Optionally include utilities API last to generate
+//    classes based on the Sass map in `_utilities.scss`
+// ----------------------------------------------------
+@import '../node_modules/bootstrap/scss/utilities/api';
+
+// 8. Add additional custom code here
+// ----------------------------------
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+h1,
+.subtitle {
+  margin-bottom: 1.5rem !important;
+  text-align: center;
+}
+
+.app-centered {
+  margin: 0 auto;
+  max-width: 60rem; // 960px
+}
+
+.app-centered-md {
+  margin: 0 auto;
+  max-width: 50rem; // 800px
+}
+
+.app-centered-sm {
+  margin: 0 auto;
+  max-width: 40rem; // 640px
+}
+
+.card-auth,
+.alert,
+.mw-24 {
+  width: calc(100% - 2rem);
+  max-width: 24rem; // 384px
+  min-width: 15rem; // 240px
+}
+
+ul li.htmx-swapping,
+ul form.htmx-swapping,
+.accordion-item.htmx-swapping {
+  opacity: 0;
+  transition: all 300ms ease-out;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-jomi-green:hover {
+  color: white;
+  transform: scale(1.1);
+  transition: all 300ms ease-out;
+}
+
+.btn-outline-warning:hover {
+  background-color: hsl(45, 100%, 47%);
+}
+
+.btn-outline-jomi-green:hover {
+  background-color: hsl(87, 86%, 39%);
+}

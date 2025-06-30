@@ -1,0 +1,26 @@
+<h1>{{pageTitle}}</h1>
+
+<div class='container d-flex flex-column justify-content-center align-items-center'
+     style="min-width: 20rem; max-width: 24rem">
+
+  {{#if user.meta.avatar_url}}
+    {{#if (contains user.meta.avatar_url 'https://')}}
+      <img src="{{user.meta.avatar_url}}"
+           alt="avatar van {{firstname}} {{lastname}}"
+           class="img-fluid rounded-circle mb-3"
+           style="width: 8rem; height: 8rem;">
+    {{else}}
+      <img src="/{{ avatarViewPath }}/{{user.meta.avatar_url}}"
+           alt="avatar van {{user.firstname}} {{user.lastname}}"
+           class="img-fluid rounded-circle mb-3"
+           style="width: 8rem; height: 8rem;">
+    {{/if}}
+  {{else}}
+    <span class="material-symbols-outlined rounded-circle mb-3"
+          style="font-size: 8rem; color: #999">
+      account_circle
+    </span>
+  {{/if}}
+
+  {{> user/profile-form inputs=inputs user=user isFormActive=false}}
+</div>

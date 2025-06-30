@@ -1,0 +1,31 @@
+<li id="eval-icf-{{ icfEval.id }}" class="list-group-item  d-flex flex-column gap-1">
+  <div class="d-flex justify-content-between flex-wrap">
+    <span><strong>Datum: </strong>{{dateTime icfEval.updated_at }}</span>
+    <div class="d-flex gap-2">
+      <span class="material-symbols-outlined text-warning"
+            role="button"
+            hx-get="/api/eval/edit/icf/{{icfEval.id}}"
+            hx-target="#eval-icf-{{ icfEval.id }}"
+            hx-swap="outerHTML swap:300ms">edit</span>
+      <span class="material-symbols-outlined text-danger"
+            role="button"
+            hx-delete="/api/eval/delete/icf/{{icfEval.id}}"
+            hx-target="#eval-icf-{{ icfEval.id }}"
+            hx-trigger="confirmed"
+            onClick="Swal.mixin(swalBootstrapMixin).fire(swalFireOptions).then((result)=> {
+              if (result.isConfirmed) {
+                htmx.trigger(this, 'confirmed');
+              }
+            });"
+            hx-swap="outerHTML swap:300ms">delete</span>
+    </div>
+  </div>
+  <span><strong>Coach: </strong>{{icfEval.maatwerkcoach.firstname }} {{icfEval.maatwerkcoach.lastname}}</span>
+  <span><strong>Typering: </strong>{{ icfEval.code.name }}</span>
+  <span><strong>Beoordeling: </strong>
+    {{ icfEval.rating.title }}: {{icfEval.rating.rating }}
+  </span>
+  {{#if icfEval.comment}}
+    <span><strong>Opmerking: </strong>{{ icfEval.comment }}</span>
+  {{/if}}
+</li>

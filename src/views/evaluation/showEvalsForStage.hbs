@@ -1,0 +1,150 @@
+{{> linkButton url=urlBtnBack showLeftIcon=true label="Terug"}}
+
+<h1>{{pageTitle}}</h1>
+
+{{!-- Toggle accordion collapse all --}}
+<div class="mb-3 form-check d-flex justify-content-center align-items-center gap-2">
+  <input class="form-check-input toggle-collapse" type="checkbox" id="toggle-collapse">
+  <label class="form-check-label" for="toggle-collapse">
+    Alles tonen
+  </label>
+</div>
+
+{{!-- PART 1: ICF EVALUATIONS --}}
+<h2 class="subtitle mt-4">
+  Generieke competenties
+  {{#if isCoach}}
+    {{> btn-add-resource urlAdd=urlAddEvalIcf}}
+  {{/if}}
+</h2>
+
+{{!-- Accordion --}}
+<div class="accordion app-centered-sm mb-3" id="accordion-icf-evals">
+  {{#each icfCategories}}
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-icf-{{ id }}"
+                aria-expanded="false"
+                aria-controls="collapse-icf-{{ id }}">
+          {{ name }}
+        </button>
+      </h2>
+      <div id="collapse-icf-{{ id }}" class="accordion-collapse collapse" data-bs-parent="#accordion-icf-evals">
+        <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+            {{#each ../icfEvals}}
+              {{#ifEq ../id icf_category_id }}
+                <li id="eval-icf-{{ id }}" class="list-group-item  d-flex flex-column gap-1">
+                  <div class="d-flex justify-content-between flex-wrap">
+                    <span><strong>Datum: </strong>{{dateTime updated_at }}</span>
+                    {{#if ../../isCoach}}
+                      <div class="d-flex gap-2">
+                        <span class="material-symbols-outlined text-warning"
+                              role="button"
+                              hx-get="/api/eval/edit/icf/{{id}}"
+                              hx-target="#eval-icf-{{ id }}"
+                              hx-swap="outerHTML swap:300ms">edit</span>
+                        <span class="material-symbols-outlined text-danger"
+                              role="button"
+                              hx-delete="/api/eval/delete/icf/{{id}}"
+                              hx-target="#eval-icf-{{ id }}"
+                              hx-trigger="confirmed"
+                              onClick="Swal.mixin(swalBootstrapMixin).fire(swalFireOptions).then((result)=> {
+                                if (result.isConfirmed) {
+                                  htmx.trigger(this, 'confirmed');
+                                }
+                              });"
+                              hx-swap="outerHTML swap:300ms">delete</span>
+                      </div>
+                    {{/if}}
+                  </div>
+                  <span><strong>Coach: </strong>{{maatwerkcoach.firstname }} {{maatwerkcoach.lastname}}</span>
+                  <span><strong>Typering: </strong>{{ code.name }}</span>
+                  <span><strong>Beoordeling: </strong>
+                    {{ rating.title }}: {{ rating.rating }}
+                  </span>
+                  {{#if comment}}
+                    <span><strong>Opmerking: </strong>{{ comment }}</span>
+                  {{/if}}
+                </li>
+              {{/ifEq}}
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+{{!-- PART 2: TECHNICAL EVALUATIONS --}}
+<h2 class="subtitle mt-4">
+  Technische competenties
+  {{#if isCoach}}
+    {{> btn-add-resource urlAdd=urlAddEvalTech}}
+  {{/if}}
+</h2>
+
+{{!-- Accordion --}}
+<div class="accordion app-centered-sm" id="accordion-tech-evals">
+  {{#each machines}}
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-tech-{{ id }}"
+                aria-expanded="false"
+                aria-controls="collapse-tech-{{ id }}">
+          <img src="/images/machines/{{slug }}.webp" alt="{{ name }}" style="width:32px; margin-right: 1rem;">
+          {{ name }}
+        </button>
+      </h2>
+      <div id="collapse-tech-{{ id }}" class="accordion-collapse collapse" data-bs-parent="#accordion-tech-evals">
+        <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+            {{#each ../techEvals}}
+              {{#ifEq ../id machine_id }}
+                <li id="eval-tech-{{ id }}" class="list-group-item  d-flex flex-column gap-1">
+                  <div class="d-flex justify-content-between flex-wrap">
+                    <span><strong>Datum: </strong>{{dateTime updated_at }}</span>
+                    {{#if ../../isCoach}}
+                      <div class="d-flex gap-2">
+                        <span class="material-symbols-outlined text-warning"
+                              role="button"
+                              hx-get="/api/eval/edit/tech/{{id}}"
+                              hx-target="#eval-tech-{{ id }}"
+                              hx-swap="outerHTML swap:300ms">edit</span>
+                        <span class="material-symbols-outlined text-danger"
+                              role="button"
+                              hx-delete="/api/eval/delete/tech/{{id}}"
+                              hx-target="#eval-tech-{{ id }}"
+                              hx-trigger="confirmed"
+                              onClick="Swal.mixin(swalBootstrapMixin).fire(swalFireOptions).then((result)=> {
+                                if (result.isConfirmed) {
+                                  htmx.trigger(this, 'confirmed');
+                                }
+                              });"
+                              hx-swap="outerHTML swap:300ms">delete</span>
+                      </div>
+                    {{/if}}
+                  </div>
+                  <span><strong>Coach: </strong>{{maatwerkcoach.firstname }} {{maatwerkcoach.lastname}}</span>
+                  <span><strong>Niveau: </strong>{{ level.name }}</span>
+                  {{#if comment}}
+                    <span><strong>Opmerking: </strong>{{ comment }}</span>
+                  {{/if}}
+                </li>
+              {{/ifEq}}
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+{{!-- Add some javascript --}}
+<script src="/js/pages/common.js" defer></script>

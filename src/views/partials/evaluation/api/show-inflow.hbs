@@ -1,0 +1,28 @@
+<li id="eval-{{ inflowEval.id }}" class="list-group-item d-flex flex-column gap-1">
+  <div class="d-flex justify-content-between flex-wrap">
+    <span><strong>Datum: </strong>{{dateTime inflowEval.updated_at }}</span>
+    <div class="d-flex gap-2">
+      <span class="material-symbols-outlined text-warning"
+            role="button"
+            hx-get="/api/eval/edit/inflow/{{inflowEval.id}}"
+            hx-target="#eval-{{ inflowEval.id }}"
+            hx-swap="outerHTML swap:300ms">edit</span>
+      <span class="material-symbols-outlined text-danger"
+            role="button"
+            hx-delete="/api/eval/delete/inflow/{{inflowEval.id}}"
+            hx-target="#eval-{{ inflowEval.id }}"
+            hx-trigger="confirmed"
+            onClick="Swal.mixin(swalBootstrapMixin).fire(swalFireOptions).then((result)=> {
+              if (result.isConfirmed) {
+                htmx.trigger(this, 'confirmed');
+              }
+            });"
+            hx-swap="outerHTML swap:300ms">delete</span>
+    </div>
+  </div>
+  <span><strong>Coach: </strong>{{inflowEval.maatwerkcoach.firstname }} {{inflowEval.maatwerkcoach.lastname}}</span>
+  <span><strong>Inhoud: </strong>{{ inflowEval.content }}</span>
+  {{#if inflowEval.comment}}
+    <span><strong>Opmerking: </strong>{{ inflowEval.comment }}</span>
+  {{/if}}
+</li>

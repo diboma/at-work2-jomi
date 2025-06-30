@@ -1,0 +1,54 @@
+<form hx-put="/api/observation/update/{{observation.id}}"
+      hx-swap="outerHTML swap:300ms scroll:top"
+      id="observation-form-{{ observation.id }}"
+      class="list-group-item d-flex flex-column gap-1">
+
+  <div class="mb-3">
+    <label for="maatwerkcoach_id" class="form-label form-label-sm">
+      Coach <span class="text-danger">*</span>
+    </label>
+    <select name="maatwerkcoach_id" id="maatwerkcoach_id" class="form-select form-select-sm" required>
+      <option value=""></option>
+      {{#each maatwerkcoaches}}
+        <option value="{{ id }}" {{#ifEq id ../observation.maatwerkcoach_id}}selected{{/ifEq}}>
+          {{firstname }} {{lastname}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="content" class="form-label">Inhoud <span class="text-danger">*</span></label>
+    <textarea name="content"
+              id="content"
+              class="form-control"
+              rows="3"
+              required>{{ observation.content }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="comment" class="form-label">Opmerking</label>
+    <textarea name="comment"
+              id="comment"
+              class="form-control"
+              rows="3">{{ observation.comment }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <input type="checkbox"
+           name="is_pinned"
+           id="is_pinned"
+           class="form-check-input"
+           {{#if observation.is_pinned}}checked{{/if}}>
+    <label for="is_pinned" class="form-label">Pinnen</label>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3 w-100">Opslaan</button>
+
+  <button hx-get="/api/observation/show/{{observation.id}}"
+          hx-target="#observation-form-{{ observation.id }}"
+          hx-swap="outerHTML swap:300ms"
+          class="btn btn-outline-secondary mt-3 w-100">Annuleren</button>
+
+
+</form>

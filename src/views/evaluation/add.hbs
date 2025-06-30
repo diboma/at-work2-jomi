@@ -1,0 +1,42 @@
+{{> linkButton url=urlBtnBack showLeftIcon=true label="Terug"}}
+
+<h1>{{pageTitle}}</h1>
+
+<div class='container d-flex flex-column justify-content-center align-items-center'
+     style="min-width: 20rem; max-width: 24rem">
+
+  {{#ifEq type "instroom"}}
+    {{> evaluation/form-eval-instroom 
+        type=type 
+        urlCancel=urlBtnBack 
+        urlSubmit=urlSubmitInstroom
+        inflowEvalSubjects=inflowEvalSubjects
+    }}
+  {{/ifEq}}
+
+  {{#ifEq type "icf"}}
+    {{> evaluation/form-eval-icf 
+        type=type 
+        urlCancel=urlBtnBack 
+        urlSubmit=urlSubmitIcf 
+        fase=fase
+        evalStages=evalStages
+        icfCategories= icfCategories
+        icfCodes=icfCodes
+        icfRatings=icfRatings
+    }}
+  {{/ifEq}}
+
+  {{#ifEq type "technisch"}}
+    {{> evaluation/form-eval-technisch 
+        type=type 
+        urlCancel=urlBtnBack 
+        urlSubmit=urlSubmitTechnisch 
+        fase=fase
+        evalStages=evalStages
+        machines=machines
+        techLevels=techLevels
+     }}
+  {{/ifEq}}
+
+</div>
